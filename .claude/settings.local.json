@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm start *)",
+      "Bash(npm list *)",
+      "Bash(npx create-expo-app@latest . --template blank)",
+      "Bash(npm install *)",
+      "Bash(mv mini-soundcloud-app/mini-soundcloud-app/* mini-soundcloud-app/)",
+      "Bash(mv mini-soundcloud-app/mini-soundcloud-app/.* mini-soundcloud-app/)",
+      "Bash(rmdir mini-soundcloud-app/mini-soundcloud-app)",
+      "Bash(npx expo *)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(xargs grep -l \"API_BASE_URL\")",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:3000/api/auth)"
+    ]
+  }
+}

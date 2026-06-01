@@ -1,0 +1,264 @@
+const express = require('express');
+const supabase = require('../config/supabase');
+const authenticate = require('../middleware/authenticate');
+
+const router = express.Router();
+
+router.get('/', authenticate, async (req, res) => {
+    try {
+        const limit = parseInt(req.query.limit) || 50;
+        const offset = parseInt(req.query.offset) || 0;
+
+        const { data: songs, error: songsError, count } = await supabase
+            .from('songs')
+            .select('*', { count: 'exact' })
+            .eq('is_public', true)
+            .order('uploaded_at', { ascending: false })
+            .range(offset, offset + limit - 1);
+
+        if (songsError) {
+            throw songsError;
+        }
+
+        res.json({
+            success: true,
+            songs: songs || [],
+            total: count || 0
+        });
+    } catch (error) {
+        console.error('Get songs error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi khi lấy danh sách bài hát',
+            error: error.message
+        });
+    }
+});
+
+router.get('/trending', authenticate, async (req, res) => {
+    try {
+        const limit = parseInt(req.query.limit) || 10;
+
+        const { data: songs, error: songsError } = await supabase
+            .from('songs')
+            .select('*')
+            .eq('is_public', true)
+            .order('play_count', { ascending: false })
+            .limit(limit);
+
+        if (songsError) {
+            throw songsError;
+        }
+
+        res.json({
+            success: true,
+            songs: songs || []
+        });
+    } catch (error) {
+        console.error('Get trending songs error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi khi lấy bài hát trending',
+            error: error.message
+        });
+    }
+});
+
+router.get('/search', authenticate, async (req, res) => {
+    try {
+        const query = req.query.q;
+
+        if (!query) {
+            return res.status(400).json({
+                success: false,
+                message: 'Thiếu từ khóa tìm kiếm'
+            });
+        }
+
+        const { data: songs, error: searchError } = await supabase
+            .from('songs')
+            .select('*')
+            .eq('is_public', true)
+            .or(`title.ilike.%${query}%,artist.ilike.%${query}%`)
+            .order('play_count', { ascending: false })
+            .limit(50);
+
+        if (searchError) {
+            throw searchError;
+        }
+
+        res.json({
+            success: true,
+            results: songs || []
+        });
+    } catch (error) {
+        console.error('Search songs error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi khi tìm kiếm bài hát',
+            error: error.message
+        });
+    }
+});
+
+router.get('/:song_id', authenticate, async (req, res) => {
+    try {
+        const { song_id } = req.params;
+
+        const { data: song, error: songError } = await supabase
+            .from('songs')
+            .select('*')
+            .eq('song_id', song_id)
+            .single();
+
+        if (songError) {
+            if (songError.code === 'PGRST116') {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Không tìm thấy bài hát'
+                });
+            }
+            throw songError;
+        }
+
+        res.json({
+            success: true,
+            song
+        });
+    } catch (error) {
+        console.error('Get song error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi khi lấy thông tin bài hát',
+            error: error.message
+        });
+    }
+});
+
+router.delete('/:song_id', authenticate, async (req, res) => {
+    try {
+        const { song_id } = req.params;
+        const userId = req.user.user_id;
+        const userRole = req.user.role;
+
+        const { data: song, error: findError } = await supabase
+            .from('songs')
+            .select('*')
+            .eq('song_id', song_id)
+            .single();
+
+        if (findError) {
+            if (findError.code === 'PGRST116') {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Không tìm thấy bài hát'
+                });
+            }
+            throw findError;
+        }
+
+        if (song.uploaded_by_id !== userId && userRole !== 'admin') {
+            return res.status(403).json({
+                success: false,
+                message: 'Bạn không có quyền xóa bài hát này'
+            });
+        }
+
+        if (song.audio_url) {
+            const audioPath = song.audio_url.split('/songs/')[1];
+            if (audioPath) {
+                await supabase.storage.from('songs').remove([audioPath]);
+            }
+        }
+
+        if (song.cover_url) {
+            const coverPath = song.cover_url.split('/covers/')[1];
+            if (coverPath) {
+                await supabase.storage.from('covers').remove([coverPath]);
+            }
+        }
+
+        const { error: deleteError } = await supabase
+            .from('songs')
+            .delete()
+            .eq('song_id', song_id);
+
+        if (deleteError) {
+            throw deleteError;
+        }
+
+        res.json({
+            success: true,
+            message: 'Xóa bài hát thành công'
+        });
+    } catch (error) {
+        console.error('Delete song error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi khi xóa bài hát',
+            error: error.message
+        });
+    }
+});
+
+router.post('/:song_id/play', authenticate, async (req, res) => {
+    try {
+        const { song_id } = req.params;
+        const userId = req.user.user_id;
+        const { duration_listened_ms = 0, completed = false } = req.body;
+
+        console.log(`[${new Date().toISOString()}] 🎵 Recording play for song: ${song_id}, user: ${userId}`);
+
+        // CHECK FOR DUPLICATE: Same user, same song within 5 seconds
+        const fiveSecondsAgo = new Date(Date.now() - 5000).toISOString();
+        const { data: recentPlay } = await supabase
+            .from('play_history')
+            .select('history_id')
+            .eq('user_id', userId)
+            .eq('song_id', song_id)
+            .gte('played_at', fiveSecondsAgo)
+            .limit(1);
+
+        if (recentPlay && recentPlay.length > 0) {
+            console.log(`[${new Date().toISOString()}] ⚠️ Duplicate play detected within 5 seconds, skipping insert`);
+            return res.json({
+                success: true,
+                message: 'Đã ghi nhận lượt nghe (duplicate skipped)',
+                duplicate: true
+            });
+        }
+
+        // Record play history
+        const { error: insertError } = await supabase
+            .from('play_history')
+            .insert([
+                {
+                    user_id: userId,
+                    song_id: song_id,
+                    duration_listened_ms: duration_listened_ms,
+                    completed: completed
+                }
+            ]);
+
+        if (insertError) {
+            console.error(`[${new Date().toISOString()}] ❌ Error inserting play history:`, insertError);
+            throw insertError;
+        }
+
+        console.log(`[${new Date().toISOString()}] ✅ Play recorded successfully`);
+
+        res.json({
+            success: true,
+            message: 'Đã ghi nhận lượt nghe'
+        });
+    } catch (error) {
+        console.error('Play song error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi khi ghi nhận lượt nghe',
+            error: error.message
+        });
+    }
+});
+
+module.exports = router;

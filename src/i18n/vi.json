@@ -1,0 +1,118 @@
+{
+  "common": {
+    "appName": "SoundCloud",
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "search": "Tìm kiếm",
+    "retry": "Thử lại",
+    "close": "Đóng"
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "email": "Email",
+    "username": "Tên người dùng",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "dontHaveAccount": "Chưa có tài khoản?",
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "loginWithGoogle": "Đăng nhập với Google",
+    "loginWithDiscord": "Đăng nhập với Discord",
+    "loginSuccess": "Đăng nhập thành công",
+    "registerSuccess": "Đăng ký thành công",
+    "logoutSuccess": "Đăng xuất thành công",
+    "invalidCredentials": "Email hoặc mật khẩu không đúng",
+    "emailRequired": "Vui lòng nhập email",
+    "usernameRequired": "Vui lòng nhập tên người dùng",
+    "passwordRequired": "Vui lòng nhập mật khẩu",
+    "passwordMinLength": "Mật khẩu phải có ít nhất 8 ký tự"
+  },
+  "home": {
+    "title": "Trang chủ",
+    "trending": "Thịnh hành",
+    "recentlyPlayed": "Nghe gần đây",
+    "forYou": "Dành cho bạn",
+    "newReleases": "Mới phát hành",
+    "playAll": "Phát tất cả"
+  },
+  "library": {
+    "title": "Thư viện",
+    "playlists": "Danh sách phát",
+    "songs": "Bài hát",
+    "albums": "Album",
+    "artists": "Nghệ sĩ",
+    "empty": "Thư viện của bạn trống",
+    "addSongs": "Thêm bài hát để bắt đầu"
+  },
+  "search": {
+    "title": "Tìm kiếm",
+    "placeholder": "Tìm bài hát, nghệ sĩ...",
+    "noResults": "Không tìm thấy kết quả",
+    "tryDifferent": "Thử từ khóa khác"
+  },
+  "player": {
+    "nowPlaying": "Đang phát",
+    "play": "Phát",
+    "pause": "Tạm dừng",
+    "next": "Tiếp theo",
+    "previous": "Trước đó",
+    "shuffle": "Ngẫu nhiên",
+    "repeat": "Lặp lại",
+    "volume": "Âm lượng",
+    "addToPlaylist": "Thêm vào danh sách",
+    "share": "Chia sẻ",
+    "lyrics": "Lời bài hát"
+  },
+  "upload": {
+    "title": "Tải lên bài hát",
+    "selectAudio": "Chọn file nhạc",
+    "selectCover": "Chọn ảnh bìa",
+    "songTitle": "Tên bài hát",
+    "artist": "Nghệ sĩ",
+    "description": "Mô tả",
+    "uploadSuccess": "Tải lên thành công",
+    "uploadError": "Tải lên thất bại",
+    "titleRequired": "Vui lòng nhập tên bài hát",
+    "artistRequired": "Vui lòng nhập tên nghệ sĩ",
+    "audioRequired": "Vui lòng chọn file nhạc"
+  },
+  "profile": {
+    "title": "Hồ sơ",
+    "editProfile": "Sửa hồ sơ",
+    "myUploads": "Bài hát của tôi",
+    "history": "Lịch sử",
+    "settings": "Cài đặt",
+    "stats": "Thống kê",
+    "uploads": "Đã tải lên",
+    "plays": "Lượt nghe",
+    "followers": "Người theo dõi",
+    "following": "Đang theo dõi"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "theme": "Giao diện",
+    "language": "Ngôn ngữ",
+    "light": "Sáng",
+    "dark": "Tối",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt",
+    "notifications": "Thông báo",
+    "privacy": "Quyền riêng tư",
+    "about": "Giới thiệu",
+    "version": "Phiên bản"
+  },
+  "errors": {
+    "networkError": "Lỗi mạng. Vui lòng kiểm tra kết nối.",
+    "serverError": "Lỗi máy chủ. Vui lòng thử lại sau.",
+    "unauthorized": "Chưa xác thực. Vui lòng đăng nhập lại.",
+    "notFound": "Không tìm thấy",
+    "somethingWrong": "Đã có lỗi xảy ra"
+  }
+}

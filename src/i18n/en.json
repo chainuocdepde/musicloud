@@ -1,0 +1,118 @@
+{
+  "common": {
+    "appName": "SoundCloud",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "retry": "Retry",
+    "close": "Close"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginWithGoogle": "Login with Google",
+    "loginWithDiscord": "Login with Discord",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "logoutSuccess": "Logout successful",
+    "invalidCredentials": "Invalid email or password",
+    "emailRequired": "Email is required",
+    "usernameRequired": "Username is required",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters"
+  },
+  "home": {
+    "title": "Home",
+    "trending": "Trending",
+    "recentlyPlayed": "Recently Played",
+    "forYou": "For You",
+    "newReleases": "New Releases",
+    "playAll": "Play All"
+  },
+  "library": {
+    "title": "Library",
+    "playlists": "Playlists",
+    "songs": "Songs",
+    "albums": "Albums",
+    "artists": "Artists",
+    "empty": "Your library is empty",
+    "addSongs": "Add some songs to get started"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search songs, artists...",
+    "noResults": "No results found",
+    "tryDifferent": "Try a different search term"
+  },
+  "player": {
+    "nowPlaying": "Now Playing",
+    "play": "Play",
+    "pause": "Pause",
+    "next": "Next",
+    "previous": "Previous",
+    "shuffle": "Shuffle",
+    "repeat": "Repeat",
+    "volume": "Volume",
+    "addToPlaylist": "Add to Playlist",
+    "share": "Share",
+    "lyrics": "Lyrics"
+  },
+  "upload": {
+    "title": "Upload Song",
+    "selectAudio": "Select Audio File",
+    "selectCover": "Select Cover Image",
+    "songTitle": "Song Title",
+    "artist": "Artist",
+    "description": "Description",
+    "uploadSuccess": "Song uploaded successfully",
+    "uploadError": "Failed to upload song",
+    "titleRequired": "Song title is required",
+    "artistRequired": "Artist name is required",
+    "audioRequired": "Audio file is required"
+  },
+  "profile": {
+    "title": "Profile",
+    "editProfile": "Edit Profile",
+    "myUploads": "My Uploads",
+    "history": "History",
+    "settings": "Settings",
+    "stats": "Stats",
+    "uploads": "Uploads",
+    "plays": "Plays",
+    "followers": "Followers",
+    "following": "Following"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "language": "Language",
+    "light": "Light",
+    "dark": "Dark",
+    "english": "English",
+    "vietnamese": "Vietnamese",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "about": "About",
+    "version": "Version"
+  },
+  "errors": {
+    "networkError": "Network error. Please check your connection.",
+    "serverError": "Server error. Please try again later.",
+    "unauthorized": "Unauthorized. Please login again.",
+    "notFound": "Not found",
+    "somethingWrong": "Something went wrong"
+  }
+}

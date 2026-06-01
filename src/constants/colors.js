@@ -1,0 +1,43 @@
+export const COLORS = {
+  // Light Mode Colors
+  light: {
+    primary: '#1DB954',
+    secondary: '#1ed760',
+    background: '#FFFFFF',
+    surface: '#F5F5F5',
+    card: '#FFFFFF',
+    text: '#000000',
+    textSecondary: '#666666',
+    border: '#E0E0E0',
+    error: '#FF3B30',
+    success: '#34C759',
+    warning: '#FF9500',
+    info: '#007AFF',
+    overlay: 'rgba(0, 0, 0, 0.5)',
+    playerBackground: '#FFFFFF',
+    playerControl: '#000000',
+    tabBar: '#FFFFFF',
+    tabBarInactive: '#8E8E93',
+  },
+
+  // Dark Mode Colors (Spotify-inspired)
+  dark: {
+    primary: '#1DB954',
+    secondary: '#1ed760',
+    background: '#121212',
+    surface: '#181818',
+    card: '#282828',
+    text: '#FFFFFF',
+    textSecondary: '#B3B3B3',
+    border: '#282828',
+    error: '#FF453A',
+    success: '#32D74B',
+    warning: '#FF9F0A',
+    info: '#0A84FF',
+    overlay: 'rgba(0, 0, 0, 0.7)',
+    playerBackground: '#181818',
+    playerControl: '#FFFFFF',
+    tabBar: '#000000',
+    tabBarInactive: '#B3B3B3',
+  },
+};

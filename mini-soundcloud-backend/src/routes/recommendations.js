@@ -192,7 +192,9 @@ router.get('/top-artists', authenticate, async (req, res) => {
         const { data: history, error: historyError } = await supabase
             .from('play_history')
             .select('songs:song_id(artist)')
-            .eq('user_id', userId);
+            .eq('user_id', userId)
+            .order('played_at', { ascending: false })
+            .limit(1000);
 
         if (historyError) {
             throw historyError;

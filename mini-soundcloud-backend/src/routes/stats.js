@@ -21,12 +21,10 @@ router.get('/user', authenticate, async (req, res) => {
         }
 
         // Get additional stats
-        const { data: downloads, error: downloadsError } = await supabase
+        const { count: downloadsCount, error: downloadsError } = await supabase
             .from('offline_downloads')
-            .select('download_id')
+            .select('download_id', { count: 'exact', head: true })
             .eq('user_id', userId);
-
-        const downloadsCount = downloads ? downloads.length : 0;
 
         res.json({
             success: true,
@@ -72,7 +70,8 @@ router.get('/listening', authenticate, async (req, res) => {
             .from('play_history')
             .select('*, songs:song_id(title, artist, duration_ms)')
             .eq('user_id', userId)
-            .gte('played_at', startDate.toISOString());
+            .gte('played_at', startDate.toISOString())
+            .limit(10000);
 
         if (historyError) {
             throw historyError;

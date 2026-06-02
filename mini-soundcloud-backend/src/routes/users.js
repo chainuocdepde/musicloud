@@ -24,16 +24,14 @@ router.get('/:user_id', authenticate, async (req, res) => {
             throw userError;
         }
 
-        const { data: uploadsData, error: uploadsError } = await supabase
+        const { count: uploadsCount, error: uploadsError } = await supabase
             .from('songs')
-            .select('song_id')
+            .select('song_id', { count: 'exact', head: true })
             .eq('uploaded_by_id', user_id);
 
         if (uploadsError) {
             throw uploadsError;
         }
-
-        const uploadsCount = uploadsData ? uploadsData.length : 0;
 
         const { data: playsData, error: playsError } = await supabase
             .from('songs')
@@ -146,12 +144,15 @@ router.put('/:user_id', authenticate, async (req, res) => {
 router.get('/:user_id/uploads', authenticate, async (req, res) => {
     try {
         const { user_id } = req.params;
+        const limit = parseInt(req.query.limit) || 50;
+        const offset = parseInt(req.query.offset) || 0;
 
-        const { data: songs, error: songsError } = await supabase
+        const { data: songs, error: songsError, count } = await supabase
             .from('songs')
-            .select('*')
+            .select('*', { count: 'exact' })
             .eq('uploaded_by_id', user_id)
-            .order('uploaded_at', { ascending: false });
+            .order('uploaded_at', { ascending: false })
+            .range(offset, offset + limit - 1);
 
         if (songsError) {
             throw songsError;
@@ -159,7 +160,8 @@ router.get('/:user_id/uploads', authenticate, async (req, res) => {
 
         res.json({
             success: true,
-            songs: songs || []
+            songs: songs || [],
+            total: count || 0
         });
     } catch (error) {
         console.error('Get user uploads error:', error);

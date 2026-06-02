@@ -12,7 +12,8 @@
       "Bash(curl -s http://localhost:3000/)",
       "Bash(xargs grep -l \"API_BASE_URL\")",
       "Bash(npm run *)",
-      "Bash(curl -s http://localhost:3000/api/auth)"
+      "Bash(curl -s http://localhost:3000/api/auth)",
+      "Bash(ipconfig)"
     ]
   }
 }

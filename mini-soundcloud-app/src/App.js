@@ -5,6 +5,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { PlayerProvider } from './contexts/PlayerContext';
+import { TearoomProvider } from './contexts/TearoomContext';
 import AppNavigator from './navigation/AppNavigator';
 import { View, StyleSheet } from 'react-native';
 
@@ -28,7 +29,9 @@ const App = () => {
         <LanguageProvider>
           <AuthProvider>
             <PlayerProvider>
-              <AppContent />
+              <TearoomProvider>
+                <AppContent />
+              </TearoomProvider>
             </PlayerProvider>
           </AuthProvider>
         </LanguageProvider>

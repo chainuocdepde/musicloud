@@ -905,3 +905,9 @@ CREATE POLICY "rm_delete_own" ON room_members FOR DELETE USING (auth.uid() = use
 -- 3. Bảng Room Messages (Chat)
 CREATE POLICY "rmsg_select_all" ON room_messages FOR SELECT USING (true);
 CREATE POLICY "rmsg_insert_auth" ON room_messages FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+
+-- Tắt RLS cho các bảng phòng trà (vì dùng custom JWT)
+ALTER TABLE rooms DISABLE ROW LEVEL SECURITY;
+ALTER TABLE room_members DISABLE ROW LEVEL SECURITY;
+ALTER TABLE room_messages DISABLE ROW LEVEL SECURITY;

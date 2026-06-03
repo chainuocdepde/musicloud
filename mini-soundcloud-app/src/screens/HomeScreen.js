@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation }) => {
     loadData();
   }, []);
 
-  const loadData = async () => {
+  const loadData = async (retryCount = 0) => {
     try {
       setLoading(true);
       const [trendingRes, songsRes] = await Promise.all([
@@ -48,8 +48,21 @@ const HomeScreen = ({ navigation }) => {
         setRecentSongs(songsRes.songs);
       }
     } catch (error) {
-      console.error('Error loading data:', error);
-      Alert.alert(t('common.error'), t('errors.networkError'));
+      console.error('❌ Error loading data:', error.message);
+
+      // Retry logic: up to 3 attempts
+      if (retryCount < 3) {
+        console.log(`🔄 Retrying... Attempt ${retryCount + 1}/3`);
+        await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+        return loadData(retryCount + 1);
+      }
+
+      // After 3 retries, show error
+      const errorMsg = error.code === 'ECONNABORTED'
+        ? 'Connection timeout. Please check your network.'
+        : error.message || 'Failed to load songs';
+
+      Alert.alert(t('common.error'), errorMsg);
     } finally {
       setLoading(false);
     }

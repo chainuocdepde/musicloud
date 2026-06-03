@@ -21,6 +21,8 @@ import HistoryScreen from '../screens/HistoryScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import AdminScreen from '../screens/AdminScreen';
+import { TearoomScreen } from '../screens/TearoomScreen';
+import { TearoomDetailScreen } from '../screens/TearoomDetailScreen';
 
 // Components
 import { MiniPlayer } from '../components';
@@ -44,6 +46,8 @@ const TabNavigator = () => {
             iconName = focused ? 'search' : 'search-outline';
           } else if (route.name === 'Library') {
             iconName = focused ? 'library' : 'library-outline';
+          } else if (route.name === 'Tearoom') {
+            iconName = focused ? 'people' : 'people-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline';
           }
@@ -69,6 +73,7 @@ const TabNavigator = () => {
       <Tab.Screen name="Home" component={HomeScreen} options={{ title: t('home.title') }} />
       <Tab.Screen name="Search" component={SearchScreen} options={{ title: t('search.title') }} />
       <Tab.Screen name="Library" component={LibraryScreen} options={{ title: t('library.title') }} />
+      <Tab.Screen name="Tearoom" component={TearoomScreen} options={{ title: 'Tearoom' }} />
       <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: t('profile.title') }} />
     </Tab.Navigator>
   );
@@ -143,6 +148,11 @@ const AppNavigator = () => {
               name="Admin"
               component={AdminScreen}
               options={{ title: 'Admin Panel' }}
+            />
+            <Stack.Screen
+              name="TearoomDetail"
+              component={TearoomDetailScreen}
+              options={{ title: 'Room Details' }}
             />
           </>
         )}

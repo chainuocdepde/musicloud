@@ -5,3 +5,6 @@ export { SongCard } from './SongCard';
 export { MiniPlayer } from './MiniPlayer';
 export { SearchBar } from './SearchBar';
 export { Loading } from './Loading';
+export { RoomCard } from './RoomCard';
+export { ChatMessage } from './ChatMessage';
+export { QueueItem } from './QueueItem';

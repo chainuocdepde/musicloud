@@ -1,7 +1,7 @@
 // Backend API Configuration
 // NOTE: Dùng IP local network (192.168.x.x) cho điện thoại thật
 // Dùng localhost cho emulator
-export const API_BASE_URL = 'http://192.168.1.45:3000/api';
+export const API_BASE_URL = 'http://192.168.1.50:3000/api';
 
 export const API_ENDPOINTS = {
   // Auth

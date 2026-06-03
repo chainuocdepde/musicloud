@@ -13,7 +13,13 @@
       "Bash(xargs grep -l \"API_BASE_URL\")",
       "Bash(npm run *)",
       "Bash(curl -s http://localhost:3000/api/auth)",
-      "Bash(ipconfig)"
-    ]
+      "Bash(ipconfig)",
+      "Bash(grep -E \"\\\\.\\(js|json\\)$\")",
+      "Bash(curl -s http://localhost:3001/api/health)",
+      "Bash(netstat -ano)"
+    ],
+    "env": {
+      "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    }
   }
 }

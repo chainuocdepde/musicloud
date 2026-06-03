@@ -12,6 +12,9 @@ const downloadsRoutes = require('./routes/downloads');
 const recommendationsRoutes = require('./routes/recommendations');
 const statsRoutes = require('./routes/stats');
 
+// SỬA CHỖ NÀY: Bóc tách lấy riêng thuộc tính router từ Object được export ra
+const { router: roomsRoutes } = require('./routes/rooms');
+
 const app = express();
 
 const limiter = rateLimit({
@@ -80,6 +83,9 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/downloads', downloadsRoutes);
 app.use('/api/recommendations', recommendationsRoutes);
 app.use('/api/stats', statsRoutes);
+
+// SỬA CHỖ NÀY: Lúc này roomsRoutes đã là hàm router chuẩn, Express sẽ nhận diện được luôn
+app.use('/api/rooms', roomsRoutes);
 
 app.use((err, req, res, next) => {
     const timestamp = new Date().toISOString();
